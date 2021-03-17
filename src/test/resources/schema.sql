@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS test_users (
+  id VARCHAR(18) NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  PRIMARY KEY(id)
+);
