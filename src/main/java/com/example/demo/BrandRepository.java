@@ -10,5 +10,4 @@ import com.example.demo.Brand.Gender;
 @Repository
 public interface BrandRepository extends JpaRepository<Brand, Integer> {
     List<Brand> findByGender(Gender gender);
-    Integer countByGender(Gender gender);
 }

@@ -2,7 +2,6 @@ package com.example.demo;
 
 import java.util.List;
 
-import org.assertj.core.groups.Tuple;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -24,28 +23,53 @@ public class BrandRepositoryTest {
 		private TestEntityManager entityManager;
 		@Autowired
 		private BrandRepository brandRepository;
-		
+
 		@BeforeEach
 		void beforeEach() {
 			// persist()は、オブジェクトをDBに追加するメソッド
-			entityManager.persist(new Brand("STOF", Gender.UNISEX));
+			System.out.println("データ投入");
+			entityManager.persist(new Brand("STOF", Gender.MAN));
 			entityManager.persist(new Brand("ETHOSENS", Gender.MAN));
-			entityManager.persist(new Brand("dulcamera", Gender.UNISEX));
+			entityManager.persist(new Brand("dulcamera", Gender.MAN));
 		}
-		
+
 		@Test
-		void man() {
+		void test1() {
 			List<Brand> brands = brandRepository.findByGender(Gender.MAN);
-			org.assertj.core.api.Assertions.assertThat(brands)
-	        .extracting(Brand::getName, Brand::getGender)
-	        .containsExactly(Tuple.tuple("ETHOSENS", Gender.MAN));
+
+			System.out.println("テスト1");
+			System.out.println("brand中身:");
+			brands.stream().forEachOrdered(e -> System.out.println(e.getId() + " : " + e.getName()));
 		}
 		
 		@Test
-		void woman() {
-	            List<Brand> brands = brandRepository.findByGender(Gender.WOMAN);
-		    org.assertj.core.api.Assertions.assertThat(brands)
-						.hasSize(0);
+		void test2() {
+			List<Brand> brands = brandRepository.findByGender(Gender.MAN);
+
+			System.out.println("テスト2");
+			System.out.println("brand中身:");
+			brands.stream().forEachOrdered(e -> System.out.println(e.getId() + " : " + e.getName()));
 		}
+		
+		
+		@Test
+		void test3() {
+			List<Brand> brands = brandRepository.findByGender(Gender.MAN);
+
+			System.out.println("テスト3");
+			System.out.println("brand中身:");
+			System.out.println(brands.stream().count());
+			brands.stream().forEachOrdered(e -> System.out.println(e.getId() + " : " + e.getName()));
+		}
+
+	
+		
+		/**
+		 * メモ
+		 * この書き方だと、連番は増え続ける。
+		 * 
+		 * 
+		 * 
+		 */
 	}
 }
